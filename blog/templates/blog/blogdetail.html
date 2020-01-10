@@ -1,11 +1,6 @@
 <!-- blog/templates/blog/blogdetail.html -->
 
-BLOGDETAIL.HTML
-
-{{ blog_entry }}
-Title:
-{{ blog_entry.title }}
-
+{% load static %}
 
 <!doctype html>
 <html lang="en">
@@ -53,15 +48,14 @@ Title:
   <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Chip Lowe</a>
+                <a class="navbar-brand" href='{% url 'home' %}'>Chip Lowe</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav ml-auto">
-                      <a class="nav-item nav-link" href="#">Twitter</a>
-                      <a class="nav-item nav-link" href="#">Resume</a>
-                      <a class="nav-item nav-link active" href="#">Blog</a>
+                            <a class="nav-item nav-link" href='{% static 'JML CV.pdf' %}'>Resume</a>
+                            <a class="nav-item nav-link active" href='{% url 'allblogs' %}'>Blog</a>
                     </div>
             </div>
         </nav>
@@ -69,20 +63,12 @@ Title:
 
 <main role="main">
     <div class='container'>
-        <h1 class='text-center pt-3'>Blog</h1>
+        <h1 class='text-center pt-3'>{{ blog_entry.title }}</h1>
         <br />
-        <br />
-        <h2>Latest Posts:</h2>
+        <p class='text-center'>{{ blog_entry.pub_date }}</p>
         <hr />
-
-        {% for blog in blogs %}
-        <a href=""><h3>{{ blog.title }}</h3></a>
-            <p>{{ blog.pub_date_pretty }}</p>
-            <p>{{ blog.summary }}</p>
-            <p><img class="image-fluid" src="{{ blog.image.url }}" height=200> </p>
-
-        {% endfor %}
-
+            <p><img class="image-fluid" src="{{ blog_entry.image.url }}" width='900'> </p>
+            <p>{{ blog_entry.body }}</p>
     </div>
 </main>
 
